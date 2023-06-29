@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+
+  db_devstagram:
+    container_name: db_devstagram
+    build: ./mysql
+    image: mysql
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci --sql-mode="NO_ENGINE_SUBSTITUTION"
+    restart: always
+    ports:
+      - "13306:3306"
+    volumes:
+       - ./schemas:/docker-entrypoint-initdb.d
+    privileged: true    
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=devstagram
+      - MYSQL_USER=docker
+      - MYSQL_PASSWORD=docker
+      - TZ=Asia/Tokyo
+
